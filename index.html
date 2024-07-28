@@ -3,19 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Embedded NEXT</title>
+    <title>Embedded NEXT Home Page</title>
+    <!-- Importing Materialize CSS from CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/4.0.0/css/material-icons.min.css">
+    <!-- Custom styles -->
     <style>
-        .container {
-            margin-top: 50px;
+        body {
+            font-family: 'Roboto', sans-serif;
         }
-        .header {
+        .hero-section {
+            background: url('https://source.unsplash.com/1600x900/?nature,water') no-repeat center center;
+            background-size: cover;
+            color: #fff;
+            padding: 100px 0;
             text-align: center;
+        }
+        .hero-section h1 {
+            font-size: 4rem;
             margin-bottom: 20px;
         }
-        .card {
-            color: black;
+        .hero-section p {
+            font-size: 1.5rem;
+        }
+        .content-section {
+            padding: 50px 20px;
+        }
+        .content-section h2 {
+            margin-bottom: 20px;
         }
         .card-content {
             padding: 20px;
@@ -24,47 +38,88 @@
 </head>
 <body>
 
-    <header class="header">
-        <h1 class="center-align">Embedded NEXT</h1>
+    <!-- Navbar -->
+    <nav class="nav-wrapper blue">
+        <div class="container">
+            <a href="#" class="brand-logo">Embedded NEXT</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-section">
+        <div>
+            <h1>Embedded NEXT</h1>
+            <p>Your one-stop solution for all your needs</p>
+        </div>
     </header>
 
-    <div class="container">
-        <div class="card">
-            <div class="card-content">
-                <span class="card-title">Blogs</span>
-                <p>Explore the latest trends and innovations in the business world.</p>
-            </div>
-            <div class="card-action">
-                <a href="https://embeddednext.github.io/tech/blogs/">Read More</a>
-            </div>
+    <!-- Content Sections -->
+    <section id="about" class="content-section">
+        <div class="container">
+            <h2>About Us</h2>
+            <p>Explore the latest trends and innovations in the Embedded</p>
         </div>
-        <div class="card">
-            <div class="card-content">
-                <span class="card-title">Business</span>
-                <p>Explore the latest trends and innovations in the business world.</p>
-            </div>
-            <div class="card-action">
-                <a href="https://embeddednext.github.io/tech/business/">Read More</a>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-content">
-                <span class="card-title">Security</span>
-                <p>Explore the latest trends and innovations in the business world.</p>
-            </div>
-            <div class="card-action">
-                <a href="https://embeddednext.github.io/tech/security/">Read More</a>
-            </div>
-        </div>
-    </div>
+    </section>
 
+    <section id="services" class="content-section grey lighten-3">
+        <div class="container">
+            <h2>Our Services</h2>
+            <div class="row">
+                <div class="col s12 m4">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Blogs</span>
+                            <p>Explore the latest trends and innovations in the Blogs world.</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="https://embeddednext.github.io/tech/blogs/">Read More</a>
+                        </div>
+                    </div>
+                </div>                
+                <div class="col s12 m4">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Business</span>
+                            <p>Explore the latest trends and innovations in the business world.</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="https://embeddednext.github.io/tech/business/">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m4">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Security</span>
+                            <p>Explore the latest trends and innovations in the Security world.</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="https://embeddednext.github.io/tech/security/">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="content-section">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <p>If you have any questions or would like to get in touch, please contact us via email or phone.</p>
+        </div>
+    </section>
+
+    <!-- Importing Materialize JS from CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
+    <!-- Initialize any JavaScript components if needed -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            M.AutoInit();
-        });
+        // Example: Initialize any JavaScript components here if needed
     </script>
-
 </body>
 </html>
