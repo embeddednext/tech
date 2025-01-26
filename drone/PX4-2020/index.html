@@ -1,0 +1,653 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../PX4-2019/">
+      
+      
+        <link rel="next" href="../PX4-2021/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.30">
+    
+    
+      
+        <title>PX4 2020 - Embedded Security</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.3cba04c6.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#2020-px4-developer-summit-virtual-videos-42" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Embedded Security" class="md-header__button md-logo" aria-label="Embedded Security" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Embedded Security
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              PX4 2020
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Embedded Security" class="md-nav__button md-logo" aria-label="Embedded Security" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Embedded Security
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://embeddednext.github.io/tech" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PX4 Setup
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    PX4 Autopilot
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            PX4 Autopilot
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PX4-Begin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PX4 Begin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PX4-2019/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PX4 2019
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    PX4 2020
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    PX4 2020
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#2020-px4-developer-summit-virtual-videos-42" class="md-nav__link">
+    <span class="md-ellipsis">
+      2020 PX4 Developer Summit | Virtual Videos-42
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PX4-2021/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PX4 2021
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PX4-2022/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PX4 2022
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PX4-2023/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PX4 2023
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Intelligent Quads
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Intelligent Quads
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../IQ-drone-dev/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Drone Software Development
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#2020-px4-developer-summit-virtual-videos-42" class="md-nav__link">
+    <span class="md-ellipsis">
+      2020 PX4 Developer Summit | Virtual Videos-42
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>PX4 2020</h1>
+
+<h2 id="2020-px4-developer-summit-virtual-videos-42"><a href="https://www.youtube.com/watch?v=ZxuhlQITHHo&amp;list=PLYy2pGCdhu7x1BpFcPsLY72D6z3AUdZWf&amp;pp=iAQB">2020 PX4 Developer Summit | Virtual</a> Videos-42</h2>
+<ul>
+<li><a href="https://youtube.com/watch?v=ZxuhlQITHHo">Keynote: Setting the standards in the drone industry for a decade — PX4 Developer Summit 2020</a> - 2624 seconds</li>
+<li><a href="https://youtube.com/watch?v=guH0CcgBnMc">PX4 failsafe testing using MAVSDK — PX4 Developer Summit Virtual 2020</a> - 682 seconds</li>
+<li><a href="https://youtube.com/watch?v=P0YM2zK0qRc">Towards a Lightweight Software Architecture for PX4 Computer Vision — PX4 Developer Summit Virtual</a> - 1702 seconds</li>
+<li><a href="https://youtube.com/watch?v=nEo4WGl4Lgc">An In-depth Look at the Multicopter Control System Architecture — PX4 Developer Summit Virtual 2020</a> - 848 seconds</li>
+<li><a href="https://youtube.com/watch?v=ooMe3LbM-6Y">Open Source Workflow for Advanced Vehicle Dynamics Simulation — PX4 Developer Summit Virtual 2020</a> - 1489 seconds</li>
+<li><a href="https://youtube.com/watch?v=60SX8pwYLUc">Simulated Workflows using Software-In-The-Loop Simulations — PX4 Developer Summit Virtual 2020</a> - 721 seconds</li>
+<li><a href="https://youtube.com/watch?v=cfa6ixqp2IY">Flying into virtual: the new reality for aerial educational robotics — PX4 Developer Summit Virtual</a> - 1916 seconds</li>
+<li><a href="https://youtube.com/watch?v=qf9ZcQQQTXU">Drones4Energy Inspection — PX4 Developer Summit Virtual 2020</a> - 933 seconds</li>
+<li><a href="https://youtube.com/watch?v=orvng_11ngQ">Overview of multicopter control from sensors to motors — PX4 Developer Summit Virtual 2020</a> - 1562 seconds</li>
+<li><a href="https://youtube.com/watch?v=94myqaMrxmI">Embedded machine learning in practice — PX4 Developer Summit Virtual 2020</a> - 1622 seconds</li>
+<li><a href="https://youtube.com/watch?v=Icfl4GqfsmI">The Simulator-In-Hardware (SIH), a low cost and hard real time HITL | PX4 Developer Summit 2020</a> - 1053 seconds</li>
+<li><a href="https://youtube.com/watch?v=BIBzKz2y-Rw">Using PX4 for Educational Satellites: CanSats — PX4 Developer Summit Virtual 2020</a> - 1108 seconds</li>
+<li><a href="https://youtube.com/watch?v=QNa_RCASYUw">Skynode Ready for Liftoff — PX4 Developer Summit Virtual 2020</a> - 254 seconds</li>
+<li><a href="https://youtube.com/watch?v=00jUHD3LBsQ">Field Tests of a Novel Swarm Control Framework — PX4 Developer Summit Virtual 2020</a> - 409 seconds</li>
+<li><a href="https://youtube.com/watch?v=ANU4m5a1zy4">What's up with your battery? — PX4 Developer Summit Virtual 2020</a> - 1671 seconds</li>
+<li><a href="https://youtube.com/watch?v=9YsufNhu1Gw">What's the difference between a drone and a flying robot? — PX4 Developer Summit Virtual 2020</a> - 1172 seconds</li>
+<li><a href="https://youtube.com/watch?v=m2o_0z0Pyy4">Getting started as a contributor on PX4 — PX4 Developer Summit Virtual 2020</a> - 903 seconds</li>
+<li><a href="https://youtube.com/watch?v=-YMiKaJYl44">Microsoft AirSim: Applications to Research and Industry — PX4 Developer Summit Virtual 2020</a> - 1553 seconds</li>
+<li><a href="https://youtube.com/watch?v=BI10DzM3CI8">The BVLOS future of drone software and industry standardization — PX4 Developer Summit 2020</a> - 1510 seconds</li>
+<li><a href="https://youtube.com/watch?v=ElcOFbwfXAU">Pixhawk : Community Driven Open Standards for Drones — PX4 Developer Summit Virtual 2020</a> - 2164 seconds</li>
+<li><a href="https://youtube.com/watch?v=sGxq9lA22tU">96Boards open platform aims to standardize high-performance AI drones — PX4 Developer Summit 2020</a> - 1926 seconds</li>
+<li><a href="https://youtube.com/watch?v=2Jn_GB21F2s">Is it a drone? Is it a plane? No, it's Jetman! — PX4 Developer Summit Virtual 2020</a> - 1644 seconds</li>
+<li><a href="https://youtube.com/watch?v=ZZhlR4ndt8k">SmartWings - Active Turbulence Suppression for Aircraft— PX4 Developer Summit Virtual 2020</a> - 1142 seconds</li>
+<li><a href="https://youtube.com/watch?v=lZ8crGI16qA">Bringing micro-ROS to PX4-based flying systems — PX4 Developer Summit Virtual 2020</a> - 1905 seconds</li>
+<li><a href="https://youtube.com/watch?v=6Bvtn_g8liU">UAVCAN for drones — PX4 Developer Summit Virtual 2020</a> - 621 seconds</li>
+<li><a href="https://youtube.com/watch?v=eu-4cvsQZS0">Our journey to achieve event-enabled autonomy (3-design choices) — PX4 Developer Summit Virtual 2020</a> - 1352 seconds</li>
+<li><a href="https://youtube.com/watch?v=phHYfAqjOuQ">The cybersecurity status of PX4 — PX4 Developer Summit Virtual 2020</a> - 1209 seconds</li>
+<li><a href="https://youtube.com/watch?v=T1orxSyqDzI">Extending MAVSDK with new features — PX4 Developer Summit Virtual 2020</a> - 1372 seconds</li>
+<li><a href="https://youtube.com/watch?v=ijZMRHsQlQo">Autonomous Exploration Path Planning in High-risk Environments using Aerial Robots</a> - 978 seconds</li>
+<li><a href="https://youtube.com/watch?v=KXxInO5w3_8">Automated testing as part of PX4 development — PX4 Developer Summit Virtual 2020</a> - 1620 seconds</li>
+<li><a href="https://youtube.com/watch?v=xjLM9whwjO4">Control Allocation: reworking the PX4 mixing system — PX4 Developer Summit Virtual 2020</a> - 1413 seconds</li>
+<li><a href="https://youtube.com/watch?v=A_zUrqC1eJM">PX4, a drone competition, an octocopter, and a bunch of high schoolers. What could go wrong?</a> - 723 seconds</li>
+<li><a href="https://youtube.com/watch?v=MwdHwjaXYKs">Getting started using UAVCAN v1 with PX4 on the NXP UAVCAN Board — PX4 Developer Summit Virtual 2020</a> - 1041 seconds</li>
+<li><a href="https://youtube.com/watch?v=TfNapuzs5KQ">What does it take to fly the PX4 stack on a certified aircraft? — PX4 Developer Summit Virtual 2020</a> - 2013 seconds</li>
+<li><a href="https://youtube.com/watch?v=JDx0MPTlhrg">Autonomous Drone Inspections using AirSim and PX4 — PX4 Developer Summit Virtual 2020</a> - 1628 seconds</li>
+<li><a href="https://youtube.com/watch?v=6ybLNkruiIU">PX4: Contributing to Docs — PX4 Developer Summit Virtual 2020</a> - 1170 seconds</li>
+<li><a href="https://youtube.com/watch?v=hKpzN8tWYog">PX4 and FAA Type Certification — PX4 Developer Summit Virtual 2020</a> - 1963 seconds</li>
+<li><a href="https://youtube.com/watch?v=CwehBx2hJcg">PX4 State Estimation 2021 Update — PX4 Developer Summit Virtual 2020</a> - 826 seconds</li>
+<li><a href="https://youtube.com/watch?v=nzUKx_guByA">HoverGames Challenge 2 — PX4 Developer Summit Virtual 2020</a> - 2154 seconds</li>
+<li><a href="https://youtube.com/watch?v=c1VmsKhbgR8">PX4 Developer Summit Virtual 2020 — 🤳 Full schedule LIVE now! (link in description)</a> - 25 seconds</li>
+<li><a href="https://youtube.com/watch?v=aZS07EwNWAc">Day 1 FULL — PX4 Developer Summit | Virtual 2020</a> - 22963 seconds</li>
+<li><a href="https://youtube.com/watch?v=8JCH_Yg8eX4">Day 2 FULL — PX4 Developer Summit | Virtual 2020</a> - 25346 seconds</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      
+    
+  </body>
+</html>

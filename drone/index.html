@@ -1,0 +1,743 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+        <link rel="next" href="PX4-Begin/">
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.30">
+    
+    
+      
+        <title>Embedded Security</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.3cba04c6.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#reference" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="Embedded Security" class="md-header__button md-logo" aria-label="Embedded Security" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Embedded Security
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              PX4 Setup
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="Embedded Security" class="md-nav__button md-logo" aria-label="Embedded Security" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Embedded Security
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://embeddednext.github.io/tech" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    PX4 Setup
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    PX4 Autopilot
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            PX4 Autopilot
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="PX4-Begin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PX4 Begin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="PX4-2019/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PX4 2019
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="PX4-2020/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PX4 2020
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="PX4-2021/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PX4 2021
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="PX4-2022/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PX4 2022
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="PX4-2023/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PX4 2023
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Intelligent Quads
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Intelligent Quads
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="IQ-drone-dev/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Drone Software Development
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="reference">Reference</h1>
+<p>https://www.youtube.com/watch?v=6SGl5S6GpNk&amp;list=PLkSeuhQd36nHmniZLph7iO82ejgxiDJYU
+https://www.youtube.com/watch?v=uLRdDl5a-Yk</p>
+<p>GS
+https://www.youtube.com/watch?v=alcQphnT0pg
+https://www.youtube.com/watch?v=q7g02kvfJoU&amp;list=PLgiealSjeVyx3t4N9GroE29SbVwhYrOtL&amp;index=8
+https://www.youtube.com/watch?v=6SGl5S6GpNk&amp;list=PLTHi8SkNXszmiZgeQx4mWjlXcEjYG1P6a
+https://www.youtube.com/watch?v=L1RO0oUdzqI</p>
+<p>Mavlink
+https://www.youtube.com/watch?v=iZ-usX1VXRI&amp;list=PLgiealSjeVyx3t4N9GroE29SbVwhYrOtL&amp;index=9</p>
+<p>SITL
+https://www.youtube.com/watch?v=AAv2zVYgxIY</p>
+<h1 id="prerequisite">Prerequisite</h1>
+<p>pip3 install --user empy
+pip3 install --user toml
+pip3 install --user numpy
+pip3 install --user jinja2</p>
+<p>sudo apt install libgstreamer1.0-dev -y
+sudo apt install gstreamer1.0-plugins-good -y
+sudo apt install gstreamer1.0-plugins-bad -y
+sudo apt install gstreamer1.0-plugins-ugly -y</p>
+<h2 id="update-packages">Update Packages</h2>
+<p>sudo apt-get update
+sudo apt-get upgrade</p>
+<p>cat /etc/apt/sources.list
+ls -lt /etc/apt/sources.list.d/</p>
+<h2 id="error-in-update">Error in update</h2>
+<p>wget -O - http://packages.osrfoundation.org/gazebo.key | sudo apt-key add -
+E: The repository 'http://packages.osrfoundation.org/gazebo/ubuntu-stable jammy InRelease' is not signed.</p>
+<p>cat /etc/apt/sources.list.d/gazebo-stable.list
+    deb [trusted=yes] http://packages.osrfoundation.org/gazebo/ubuntu-stable jammy main</p>
+<h1 id="px4_sitl-guide">PX4_SITL Guide</h1>
+<p>Step 1: Install PX4 setup
+git clone https://github.com/PX4/PX4-Autopilot.git --recursive</p>
+<p>make clean; make distclean;
+bash ./Tools/setup/ubuntu.sh</p>
+<p>Step 2: Install Gazebo 11
+cd ~
+curl -sSL http://get.gazebosim.org | sh</p>
+<p>sudo apt install aptitude
+sudo aptitude install libgazebo-dev</p>
+<p>Step 3: Run PX4 + Gazebo 11 [Run gazebo]
+cd PX4-Autopilot</p>
+<p>make clean; make distclean;
+bash ./Tools/setup/ubuntu.sh
+make px4_sitl gz_x500</p>
+<!-- make px4_sitl gazebo   # QuadCopter -->
+
+<p>OR</p>
+<p>Step 3: Run PX4 + JMavsim
+ls -l /usr/lib/jvm/java-<ver>-openjdk-amd64/bin/java</p>
+<p>export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+export PATH=$JAVA_HOME/bin:$PATH
+make px4_sitl jmavsim</p>
+<p>Step 4: Install QGroundControl
+sudo usermod -a -G dialout $USER
+sudo apt-get remove modemmanager -y
+sudo apt install gstreamer1.0-plugins-bad gstreamer1.0-libav gstreamer1.0-gl -y
+chmod +x ./QGroundControl.AppImage
+./QGroundControl.AppImage </p>
+<h1 id="qgc-build-v40">QGC Build v4.0</h1>
+<p>https://www.youtube.com/watch?v=6SGl5S6GpNk&amp;t=9s
+QGC v4.0
+Qt v5.15.0</p>
+<h1 id="qgc-dev-guide">QGC dev guide</h1>
+<p>https://docs.qgroundcontrol.com/master/en/qgc-dev-guide/getting_started/index.html</p>
+<p>Step 1: Setup QT from online
+https://www.qt.io/download-open-source
+https://download.qt.io/archive/online_installers/4.7/qt-unified-linux-x64-4.7.0-online.run</p>
+<p>./qt-online-installer-linux-x64-4.8.0.run --help | grep mirror
+Singapore Mirror https://download.qt.io/static/mirrorlist/
+./qt-online-installer-linux-x64-4.8.0.run --mirror https://mirrors.cloud.tencent.com/qt/
+https://ubuntu.pkgs.org/22.04/ubuntu-universe-arm64/libxcb-cursor-dev_0.1.1-4ubuntu1_arm64.deb.html</p>
+<p>Step 2: Install Additional Packages
+git clone --recursive -j8 https://github.com/mavlink/qgroundcontrol.git
+git submodule update --recursive
+bash ./qgroundcontrol/tools/setup/install-dependencies-debian.sh</p>
+<h2 id="qt-build">QT Build</h2>
+<p>Step 3: Configure QT Project "qgroundcontrol"
+gcc --version
+gcc (Ubuntu 12.3.0-1ubuntu1~22.04) 12.3.0</p>
+<p>cd DIR/qgroundcontrol
+git checkout Stable_V4.4
+Launch Qt Creator, select Open Project and select the DIR/qgroundcontrol/qgroundcontrol.pro OR DIR/qgroundcontrol/CMakeLists.txt file.
+Select the appropriate kit for your needs: Ubuntu: Desktop Qt 6.6.3 GCC 64bit
+Build using the "hammer" icons</p>
+<p>Goto Projects &gt; Build &amp; Run &gt; Desktop Qt 5.15 GCC 64bit
+    Double click on Build &gt; Double click on Run</p>
+<p>Press Alt + 1 then o to print detailed error</p>
+<h2 id="manual-build">Manual build</h2>
+<p>ls /usr/lib/x86_64-linux-gnu/cmake | grep -i qt5
+ls /usr/lib/x86_64-linux-gnu/cmake | grep -i qt6</p>
+<p>dpkg -l | grep qt6-
+apt-cache search qt5multimedia</p>
+<ol>
+<li>
+<p>Locate Qt6Config.cmake
+find /usr/lib/x86_64-linux-gnu/ -name "Qt6Config.cmake"
+tree /usr/lib/x86_64-linux-gnu/cmake/ -L 1</p>
+</li>
+<li>
+<p>Get Qt package required
+export QT_PLUGIN_PATH=/usr/lib/x86_64-linux-gnu/qt6/plugins
+cd ~/Downloads/qgc/qgroundcontrol/build
+cmake /opt/qt5/lib/cmake/ -DQt5_DIR=/usr/lib/x86_64-linux-gnu/cmake/Qt5 ..
+cmake -DQt6_DIR=/usr/lib/x86_64-linux-gnu/cmake/Qt6 ..</p>
+</li>
+</ol>
+<h2 id="reference_1">Reference</h2>
+<p>https://my.qt.io/
+https://doc.qt.io/
+https://wiki.qt.io/Main
+https://marketplace.qt.io/</p>
+<p>https://download.qt.io/archive/online_installers/
+    https://download.qt.io/official_releases/online_installers/
+    https://master.qt.io/archive/online_installers/
+    https://mirrors.cloud.tencent.com/qt/archive/online_installers/
+    https://download.qt.io/archive/online_installers/4.7/qt-unified-linux-x64-4.7.0-online.run</p>
+<p>https://www.qt.io/offline-installers
+https://www.qt.io/developers</p>
+<p>https://code.qt.io/cgit/
+https://codereview.qt-project.org/admin/repos
+https://download.qt.io/
+https://wiki.qt.io/Qt_6.8_Release
+https://www.qt.io/product/features</p>
+<p>https://www.learnqt.guide/courses/
+https://www.youtube.com/@LearnQtGuide/playlists</p>
+<h2 id="compile-qt-51514-source">Compile QT 5.15.14 Source</h2>
+<p>https://doc.qt.io/qt-5/gettingstarted.html
+https://doc.qt.io/qt-5/linux-building.html</p>
+<p>https://www.linuxfromscratch.org/blfs/view/
+https://www.linuxfromscratch.org/blfs/view/10.0-systemd/x/qt5.html          # QT 5.15.0
+https://www.linuxfromscratch.org/blfs/view/11.0-systemd/x/qt5.html          # QT 5.15.2
+https://www.linuxfromscratch.org/blfs/view/11.2-systemd/x/qt5.html          # QT 5.15.5
+https://www.linuxfromscratch.org/blfs/view/11.3-systemd/x/qt5.html          # QT 5.15.8
+https://www.linuxfromscratch.org/blfs/view/12.0-systemd/x/qt5.html          # QT 5.15.10
+https://www.linuxfromscratch.org/blfs/view/svn/x/qt5-components.html        # QT 5.15.14
+https://lfs.maru-na.net/patches/downloads/qt-everywhere-opensource-src/qt-everywhere-opensource-src-5.15.14-kf5-1.patch</p>
+<p>export QT5PREFIX=/opt/qt5
+sudo mkdir -pv /opt/qt-5.15.14
+sudo ln -sfnv qt-5.15.14 /opt/qt5
+patch -Np1 -i ../qt-everywhere-opensource-src-5.15.14-kf5-1.patch
+mkdir -pv qtbase/.git</p>
+<p>ls -Fd qt* | grep / | sed 's/^/-skip /;s@/@@' &gt; tempconf &amp;&amp;
+sed -i -r '/base|tools|x11extras|svg|declarative|wayland/d' tempconf</p>
+<p>./configure -prefix $QT5PREFIX -sysconfdir /etc/xdg -confirm-license -opensource -dbus-linked -openssl-linked -system-harfbuzz -system-sqlite -nomake examples -no-rpath -syslog $(cat tempconf) </p>
+<p>make; make install;
+make clean; make distclean;</p>
+<pre><code>find /opt/qt5/ -name &quot;*Config.cmake&quot;
+</code></pre>
+<p>export QT5BINDIR=$QT5PREFIX/bin
+sudo install -v -dm755 /usr/share/pixmaps/               <br />
+sudo install -v -Dm644 qttools/src/assistant/assistant/images/assistant-128.png     /usr/share/pixmaps/assistant-qt5.png
+sudo install -v -Dm644 qttools/src/designer/src/designer/images/designer.png        /usr/share/pixmaps/designer-qt5.png 
+sudo install -v -Dm644 qttools/src/linguist/linguist/images/icons/linguist-128-32.png   /usr/share/pixmaps/linguist-qt5.png 
+sudo install -v -Dm644 qttools/src/qdbus/qdbusviewer/images/qdbusviewer-128.png     /usr/share/pixmaps/qdbusviewer-qt5.png
+sudo install -dm755 /usr/share/applications</p>
+<p>Finally, Search in Apps Qt 5</p>
+<h2 id="install-from-codeqtio">Install From code.qt.io</h2>
+<p>git clone https://code.qt.io/qt/qt5.git
+cd qt5
+git checkout 5.15</p>
+<p>Update .gitmodules for required components</p>
+<p>git submodule                                                   # list submodule
+git config --file .gitmodules --name-only --get-regexp path     # get paths
+git submodule deinit -f -- .qtdocgallery.path   </p>
+<p>./configure -developer-build -opensource -confirm-license -nomake examples -nomake tests</p>
+<p>make -j$(nproc)
+sudo make install</p>
+<h2 id="other-guide">Other guide</h2>
+<p>https://ubuntu.pkgs.org/22.04/ubuntu-main-amd64/libx11-dev_1.7.5-1_amd64.deb.html
+http://archive.ubuntu.com/ubuntu/pool/main/libx/libx11/libx11-dev_1.7.5-1_amd64.deb</p>
+<p>https://www.youtube.com/watch?v=PY41CP13p3k
+https://www.ics.com/blog/how-compile-qt-source-code-linux
+https://releases.linaro.org/components/toolchain/binaries/latest-7/aarch64-linux-gnu/gcc-linaro-7.5.0-2019.12-x86_64_aarch64-linux-gnu.tar.xz</p>
+<p>wget https://download.qt.io/archive/qt/5.15/5.15.3/single/qt-everywhere-opensource-src-5.15.3.tar.xz
+md5sum qt-everywhere-opensource-src-5.15.3.tar.xz 
+a1c893731d6a4500cd08409911b7cb72  qt-everywhere-opensource-src-5.15.3.tar.xz</p>
+<p>tar xf qt-everywhere-opensource-src-5.15.3.tar.xz
+cd qt-everywhere-src-5.15.3</p>
+<p>./configure -prefix /usr/local/qt5.15.3 -opensource -confirm-license
+make -j6
+sudo make install
+ls /usr/local/Qt-5.15.3/bin/designer</p>
+<p>make docs
+sudo make install_docs
+ls /usr/local/Qt-5.15.3/bin/assistant</p>
+<h2 id="ubuntu-20046-lts-qt-5153">Ubuntu 20.04.6 LTS [Qt 5.15.3]</h2>
+<p>https://launchpad.net/~beineri
+sudo add-apt-repository ppa:beineri/opt-qt-5.15.3-focal
+sudo apt-get update</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      
+    
+  </body>
+</html>
